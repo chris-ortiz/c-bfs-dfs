@@ -3,13 +3,13 @@
 #include <stdio.h>
 #include "node.h"
 
-struct node* new_node() {
-  struct node* node = malloc(sizeof(struct node));
+node* new_node() {
+  node* node = malloc(sizeof(struct node));
   node->value = rand();
   return node;
 }
 
-void init_nodes(int count, struct node* node) {
+void init_nodes(int count, node* node) {
   if (count == 0) return;
   
   struct node* new_root = new_node();
@@ -23,7 +23,7 @@ void init_nodes(int count, struct node* node) {
   init_nodes(--count, new_root);
 }
 
-void print_nodes(struct node* node) {
+void print_nodes(node* node) {
   if (node == NULL) return;
 
   printf("Node Value {%d}\n", node->value);
@@ -35,7 +35,7 @@ void print_nodes(struct node* node) {
   print_nodes(node->right);
 }
 
-void delete_node(struct node* node) {
+void delete_node(node* node) {
   if (node == NULL) return;
 
   delete_node(node->left);
@@ -44,8 +44,8 @@ void delete_node(struct node* node) {
   free(node);
 }
 
-struct node* prefilled_root_node() {
-  struct node* root = new_node();
+node* prefilled_root_node() {
+  node* root = new_node();
 
   root->left = new_node();
   root->right = new_node();

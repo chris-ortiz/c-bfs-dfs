@@ -5,12 +5,12 @@
 #include "queue.h"
 
 const int DIVISOR = 61;
-typedef struct node* (*search_function)(struct node*, int*);
+typedef const node* (*search_function)(const node*, int*);
 
 
-struct node* breadth_first_search(struct node* node, int* depth) {
+const node* breadth_first_search(const node* node, int* depth) {
   struct node* root = prefilled_root_node();
-  struct queue* queue = init_queue(); 
+  queue* queue = init_queue(); 
 
   put(queue, root);
   
@@ -31,25 +31,25 @@ struct node* breadth_first_search(struct node* node, int* depth) {
   return NULL;
 }
 
-struct node* depth_first_search(struct node* node, int* depth) {
+const node* depth_first_search(const node* node, int* depth) {
   (*depth)++;
 
   if (node == NULL) return NULL;
  
   if (node->value % DIVISOR == 0) return node;
 
-  struct node* left = depth_first_search(node->left, depth);
+  const struct node* left = depth_first_search(node->left, depth);
   if (left != NULL) return left;
 
-  struct node* right = depth_first_search(node->right, depth); 
+  const struct node* right = depth_first_search(node->right, depth); 
   return right;
 }
 
 int execute_iteration(search_function search){
   srand(time(0));
   int depth = 0;
-  struct node* root = prefilled_root_node(); 
-  struct node* node = search(root, &depth);
+  node* root = prefilled_root_node(); 
+  const node* node = search(root, &depth);
  
   /*
   if (node == NULL) {
@@ -66,7 +66,7 @@ int execute_iteration(search_function search){
   return depth;
 }
 
-void test(char* algo, search_function search) {
+void test(const char* algo, search_function search) {
   const int runs = 10000;
   int results[runs];
   int sum;

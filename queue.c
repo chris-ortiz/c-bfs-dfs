@@ -4,14 +4,14 @@
 
 const uint16_t MAX_SIZE = 1000;
 
-struct queue* init_queue() {
+queue* init_queue() {
   struct queue* queue = malloc(sizeof(struct queue));
   queue->max_size = MAX_SIZE;
   queue->items = malloc(MAX_SIZE * sizeof(void*));
   return queue;
 }
 
-int put(struct queue* queue, void* element) {
+int put(queue* queue, void* element) {
   if (queue->current_size == MAX_SIZE) {
     return -1;
   }
@@ -21,7 +21,7 @@ int put(struct queue* queue, void* element) {
   return 0;
 }
 
-void* remove_item(struct queue* queue) {
+void* remove_item(queue* queue) {
   if (queue->current_size == 0) return NULL;
 
   void* first = queue->items[0];
@@ -36,11 +36,11 @@ void* remove_item(struct queue* queue) {
   return first;
 } 
 
-void delete_queue(struct queue* queue) {
+void delete_queue(queue* queue) {
   free(queue->items);
   free(queue);
 }
 
-bool has_items(struct queue* queue) {
+bool has_items(const queue* queue) {
   return queue->current_size > 0;
 }
